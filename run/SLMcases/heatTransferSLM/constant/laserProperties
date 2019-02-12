@@ -1,0 +1,30 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      laserProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+laserPower      laserPower [ 1 2 -3 0 0 0 0 ] 120;
+
+laserRadius     laserRadius [ 0 1 0 0 0 0 0 ] 55e-6;//55e-6;
+
+laserSpeed      laserSpeed [ 0 1 -1 0 0 0 0 ] -0.3;//0.3;
+
+coordStartX     coordStartX [ 0 1 0 0 0 0 0 ] 5e-4;//5e-4;
+
+coordStartY     coordStartY [ 0 1 0 0 0 0 0 ] 5e-4;//5e-4;
+
+coordStartZ     coordStartZ [ 0 1 0 0 0 0 0 ] 0;
+
+// ************************************************************************* //

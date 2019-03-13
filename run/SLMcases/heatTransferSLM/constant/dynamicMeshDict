@@ -20,13 +20,13 @@ dynamicFvMesh   dynamicRefineFvMesh;
 dynamicRefineFvMeshCoeffs
 {
     refineInterval  1;
-    field           porosity;
-    lowerRefineLevel 0.01;
-    upperRefineLevel 0.99;
-    unrefineLevel   4;
+    field           liquidFraction;
+    lowerRefineLevel 0.001;
+    upperRefineLevel 0.999;
+    unrefineLevel   6;
     nBufferLayers   1;
-    maxRefinement   2;
-    maxCells        4001;
+    maxRefinement   4;
+    maxCells        450;
     correctFluxes
     (
         (

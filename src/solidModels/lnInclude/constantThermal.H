@@ -1,0 +1,1 @@
+../thermalModel/thermalLaws/constantThermal/constantThermal.H

@@ -1,0 +1,1 @@
+../fvPatchFields/solidDirectionMixed/solidDirectionMixedFvPatchVectorField.H

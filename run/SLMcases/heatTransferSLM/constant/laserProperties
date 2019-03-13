@@ -17,14 +17,17 @@ FoamFile
 
 laserPower      laserPower [ 1 2 -3 0 0 0 0 ] 120;
 
-laserRadius     laserRadius [ 0 1 0 0 0 0 0 ] 55e-6;//55e-6;
+laserRadius     laserRadius [ 0 1 0 0 0 0 0 ] 5.5e-05;
 
-laserSpeed      laserSpeed [ 0 1 -1 0 0 0 0 ] -0.3;//0.3;
+laserSpeed      laserSpeed [ 0 1 -1 0 0 0 0 ] -0.3;
 
-coordStartX     coordStartX [ 0 1 0 0 0 0 0 ] 5e-4;//5e-4;
+coordStartX     coordStartX [ 0 1 0 0 0 0 0 ] 0.0002;
 
-coordStartY     coordStartY [ 0 1 0 0 0 0 0 ] 5e-4;//5e-4;
+coordStartY     coordStartY [ 0 1 0 0 0 0 0 ] 0.0005;
 
 coordStartZ     coordStartZ [ 0 1 0 0 0 0 0 ] 0;
+
+timeStop        timeStop [ 0 0 1 0 0 0 0 ] 0.006;
+
 
 // ************************************************************************* //

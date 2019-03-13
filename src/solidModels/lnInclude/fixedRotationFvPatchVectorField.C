@@ -1,0 +1,1 @@
+../fvPatchFields/fixedRotation/fixedRotationFvPatchVectorField.C

@@ -17,7 +17,9 @@ FoamFile
 
 initialPorosity initialPorosity [ 0 0 0 0 0 0 0 ] 0.4;
 
-absorptivity    absorptivity [ 0 0 0 0 0 0 0 ] 1;
+absorptivity    absorptivity [ 0 0 0 0 0 0 0 ] 0.3;
 
-powderDepth     powderDepth  [ 0 1 0 0 0 0 0 ] 40e-6;
+powderDepth     powderDepth [ 0 1 0 0 0 0 0 ] 4e-05;
+
+
 // ************************************************************************* //

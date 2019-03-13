@@ -75,6 +75,11 @@
     (
         dimensionedScalar(thermalProperties.lookup("enthalpyFusion"))
     );
+
+    dimensionedScalar alphaLinear
+    (
+        dimensionedScalar(thermalProperties.lookup("alphaLinear"))
+    );
 //
 //
 //     ///

@@ -1,0 +1,1 @@
+../fvPatchFields/solidSymmetry/solidSymmetryFvPatchVectorField.C

@@ -41,3 +41,8 @@
     (
         dimensionedScalar(laserProperties.lookup("coordStartZ"))
     );
+
+    dimensionedScalar timeStop
+    (
+        dimensionedScalar(laserProperties.lookup("timeStop"))
+    );

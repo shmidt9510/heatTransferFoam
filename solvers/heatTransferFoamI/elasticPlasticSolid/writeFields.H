@@ -61,7 +61,10 @@ if (runTime.outputTime())
           + sigma.component(symmTensor::ZZ)
         )/3
     );
-    Info<< "Max sigmaHyd = " << max(sigmaHyd).value() << endl;
+    Info<< "Max sigmaHyd = " << max(sigmaHyd).value() << endl <<
+     "Xx " << max(sigma.component(symmTensor::XX)).value() << endl <<
+     "Yy " << max(sigma.component(symmTensor::YY)).value() << endl <<
+     "Zz " << max(sigma.component(symmTensor::ZZ)).value() << endl;
 
     runTime.write();
 }

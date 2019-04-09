@@ -1,1 +1,0 @@
-../constitutiveModel/solidInterfaces/smallStrainOrthotropic/smallStrainOrthotropicSolidInterface.H

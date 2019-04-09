@@ -1,1 +1,0 @@
-../constitutiveModel/solidInterfaces/largeStrainULCorrected/largeStrainULCorrectedSolidInterface.H

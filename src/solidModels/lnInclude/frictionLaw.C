@@ -1,1 +1,0 @@
-../contactModels/frictionContactModels/frictionLaws/frictionLaw/frictionLaw.C

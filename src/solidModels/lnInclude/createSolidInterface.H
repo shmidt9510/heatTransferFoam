@@ -1,1 +1,0 @@
-../constitutiveModel/solidInterfaces/createSolidInterface.H

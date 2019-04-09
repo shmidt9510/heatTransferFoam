@@ -1,1 +1,0 @@
-../fvPatchFields/solidContact/solidContactFvPatchVectorField.H

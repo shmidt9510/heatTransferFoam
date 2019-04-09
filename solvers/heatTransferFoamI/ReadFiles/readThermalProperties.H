@@ -80,6 +80,11 @@
     (
         dimensionedScalar(thermalProperties.lookup("alphaLinear"))
     );
+
+    dimensionedScalar smootherFactor
+    (
+        dimensionedScalar(thermalProperties.lookup("smootherFactor"))
+    );
 //
 //
 //     ///

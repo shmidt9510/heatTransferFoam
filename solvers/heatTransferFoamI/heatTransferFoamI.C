@@ -31,18 +31,15 @@ Simulate selective laser melting on the single layer with mechanical stresses pr
 
 #include "fvCFD.H"
 #include "dynamicFvMesh.H"
+#include "pisoControl.H"
 
-// DynamicMesh things and stuff
-// #   include "initContinuityErrs.H"
-// #   include "initTotalVolume.H"
-// #   include "createFields.H"
-// #   include "createControls.H"
+
 
 #include "mathematicalConstants.H"
 #include "functionsPhys.H"
 #include "functionsMath.H"
-//ELASTOTHERMOPLASTOTHING
 
+//ELASTOTHERMOPLASTOTHING
 #include "constitutiveModel.H"
 #include "solidContactFvPatchVectorField.H"
 
@@ -54,10 +51,12 @@ int main(int argc, char *argv[])
 
 #include "setRootCase.H"
 #include "createTime.H"
-#include "createDynamicFvMesh.H"
+#include "createMesh.H"
+// #include "createDynamicFvMesh.H"
+// #include "createMesh.H"
 
-#include "initContinuityErrs.H"
-//TODO Create object of properties onedat
+//For dynamic mesh solver and checker
+// pisoControl piso(mesh);
 
 #include "readThermalProperties.H"
 #include "readLaserProperties.H"
@@ -65,29 +64,38 @@ int main(int argc, char *argv[])
 #include "createFields.H"
 #include "readTimeCoord.H"
 
-
-#   include "createPlasticFields.H"
-#   include "createHistory.H"
-#   include "readDivDSigmaExpMethod.H"
-#   include "readSolidMechanicsControls.H"
+// Plastic stuff
+#include "createPlasticFields.H"
+#include "createHistory.H"
+#include "readDivDSigmaExpMethod.H"
+#include "readSolidMechanicsControls.H"
+/*
+ARSTOTZKA AND DYNAMIC MESH
+*/
+// #include "initContinuityErrs.H"
+// #include "initTotalVolume.H"
+// #include "createMeshFields.H"
+// #include "createControls.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 coordX = mesh.C().component(vector::X);
 coordY = mesh.C().component(vector::Y);
 coordZ = mesh.C().component(vector::Z);
-porosityPrev =  initialPorosity.value()*tanhSmooth(coordZ, powderDepth, powderDepth/100);
-liquidFraction = tanhSmooth(T, (T_solidus+T_liquidus)/2, (T_solidus-T_liquidus)/2);
+porosityPrev =  initialPorosity.value()*tanhSmooth(coordZ, powderDepth, powderDepth/smootherFactor);
+liquidFraction = tanhSmooth(T, (T_solidus + T_liquidus)/2, (T_solidus - T_liquidus)/smootherFactor);
 //Initial enthalpy
 he = enthalpyCalc(T, liquidFraction, Cp_sol, Cp_liq, dCp_sol, dCp_liq, T_solidus, T_liquidus, enthalpyFusion);
 
-dimensionedScalar he_solidus =(0.5*T_solidus*(2*Cp_sol+dCp_sol*T_solidus));
-dimensionedScalar he_liquidus = enthalpyFusion + 0.5*T_solidus*(2*Cp_sol+dCp_sol*T_solidus);
-liquidFraction = tanhSmooth(he, (he_solidus+he_liquidus)/2, (he_solidus-he_liquidus)/2);
+dimensionedScalar he_solidus = (0.5*T_solidus*(2*Cp_sol + dCp_sol*T_solidus));
+dimensionedScalar he_liquidus = enthalpyFusion + 0.5*T_solidus*(2*Cp_sol + dCp_sol*T_solidus);
+liquidFraction = tanhSmooth(he, (he_solidus + he_liquidus)/2, (he_solidus - he_liquidus)/smootherFactor);
 volScalarField Cp = FourParameterModel(liquidFraction, T, Cp_sol, Cp_liq, dCp_sol, dCp_liq);
 volScalarField k = FourParameterModel(liquidFraction, T, k_sol, k_liq, dk_sol, dk_liq);
 volScalarField gradhe (Foam::mag(fvc::grad(he)));
 dimensionedScalar deltaT (runTime.deltaT());
 Info<< "Delta time= " << deltaT << nl << endl;
+
+// ***************** Check laser source energy ***************
 // dimensionedScalar liquidFractionVolume = fvc::domainIntegrate(liquidFraction);
 // dimensionedScalar hmin = pow(min(mesh.V()),1/3);
 //
@@ -99,7 +107,7 @@ Info<< "Delta time= " << deltaT << nl << endl;
 // entSumPrev.internalField() *= mesh.V();
 // entSum.internalField() *= mesh.V();
 
-//Check resolution
+// ***************** Check resolution ***************
 volScalarField gausTest(
      gaussian(coordX, coordStartX, laserRadius)
     *gaussian(coordY, coordStartY, laserRadius)
@@ -113,14 +121,16 @@ volScalarField gausTest(
           << exit(FatalError);
     }
 
+// ****************** MAIN LOOP *****************
+
     Info<< "\nStarting time loop\n" << endl;
 
     while (runTime.loop())
     {
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
-        //Adaptive mesh update, turn on in case file
-        mesh.update();
+        //Dynamic mesh
+// #       include "dynMeshFile.H"
 
         //Calculation of the heat distribution
 #       include "heatTransferSolve.H"

@@ -1,1 +1,0 @@
-../thermalModel/thermalLaws/multiMaterialThermal/multiMaterialThermal.C

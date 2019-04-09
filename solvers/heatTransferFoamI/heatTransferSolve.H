@@ -1,15 +1,5 @@
-// TODO new laser with strategy
+#include "laserMovement.H"
 
-dimensionedScalar localTime = mesh.time();
-
-laserDistribution = 2*absorptivity*laserPower*
-  gaussian(coordX, coordStartX-laserSpeed*localTime, laserRadius)*
-  gaussian(coordY, coordStartY, laserRadius)*
-  gaussian(coordZ, coordStartZ, laserRadius);
-if (localTime>timeStop)
-{
-  laserDistribution *= 0;
-}
 porosity = max(scalar(0), min(porosityPrev, initialPorosity*(scalar(1) - liquidFraction)));
 
 Cp = FourParameterModel(liquidFraction, T, Cp_sol, Cp_liq, dCp_sol, dCp_liq);
@@ -40,9 +30,7 @@ T = temperatureCalc(he, liquidFraction, Cp_sol, Cp_liq, dCp_sol, dCp_liq, T_soli
 gradhe = Foam::mag(fvc::grad(he));
 porosityPrev = porosity;
 
-/*
-Check enthalpy and temperature calculation
-*/
+// ***************** Check laser source energy ***************
 // volScalarField he_calc = enthalpyCalc(T, liquidFraction, Cp_sol, Cp_liq, dCp_sol, dCp_liq, T_solidus, T_liquidus, enthalpyFusion);
 // volScalarField qq = he-he_calc;
 // Info<< "Sum of difference of he and enthalpyCalc(temeperatureCalc(he)) = " << sum(qq) << nl << endl;

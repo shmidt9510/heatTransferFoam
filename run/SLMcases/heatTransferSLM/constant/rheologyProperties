@@ -21,11 +21,16 @@ plasticityModel yamadaMises;
 
 rheology
 {
-  type            elasticPlastic;
+  type            thermoElasticPlastic;
+  temperatureField T;
+  sigmaYInterpolationTable {
+      outOfBounds     clamp;
+      fileName        "$FOAM_CASE/constant/tempVsSigmaY";
+  }
   rho             rho [1 -3 0 0 0 0 0] 7883;
   E               E [1 -1 -2 0 0 0 0] 200e+09;
   nu              nu [0 0 0 0 0 0 0] 0.3;
-  sigmaY          sigmaY [1 -1 -2 0 0 0 0] 200e+06;
+  sigmaY          sigmaY [1 -1 -2 0 0 0 0] 332+06;
   Ep              Ep [1 -1 -2 0 0 0 0] 1e+06;
   T_liquidus      T_liquidus [ 0 0 0 1 0 0 0 ] 1410;
 

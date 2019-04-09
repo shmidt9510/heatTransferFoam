@@ -1,1 +1,0 @@
-../contactModels/normalContactModels/iterativePenalty/iterativePenalty.H

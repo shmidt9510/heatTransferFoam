@@ -8,42 +8,22 @@
 FoamFile
 {
     version     2.0;
-    format      ascii;
-    class       dictionary;
-    location    "system";
-    object      decomposeParDict;
+    format      binary;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-numberOfSubdomains 6;
-
-method          metis;
-
-simpleCoeffs
-{
-    n               ( 2 2 2 );
-    delta           0.001;
-}
-
-hierarchicalCoeffs
-{
-    n               ( 2 2 2 );
-    delta           0.001;
-    order           xyz;
-}
-
-metisCoeffs
-{
-}
-
-manualCoeffs
-{
-    dataFile        "";
-}
-
-distributed     no;
-
-roots           ( );
+1
+(
+    allfaces
+    {
+        type            wall;
+        nFaces          10000;
+        startFace       182500;
+    }
+)
 
 
 // ************************************************************************* //

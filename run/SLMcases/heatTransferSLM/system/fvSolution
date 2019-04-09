@@ -34,20 +34,74 @@ solvers
 
     DU
     {
-        solver          PCG;
-        preconditioner  DIC;
+        solver          PCG; //PCG
+        preconditioner  DIC; //DIC
+
         tolerance       1e-07;
         relTol          0.1;
     }
+
+    pcorr
+    {
+        solver           BiCGStab;
+        preconditioner   DILU;
+
+        minIter          0;
+        maxIter          1000;
+        tolerance        1e-02;
+        relTol           0;
+    };
+
+    p
+    {
+        solver           CG;
+        preconditioner   Cholesky;
+
+        minIter          0;
+        maxIter          1000;
+        tolerance        1e-07;
+        relTol           0.0;
+    };
+
+    pFinal
+    {
+        solver           CG;
+        preconditioner   Cholesky;
+
+        minIter          0;
+        maxIter          1000;
+        tolerance        1e-07;
+        relTol           0;
+    };
+
+    Umesh
+    {
+        solver            BiCGStab;
+        preconditioner    DILU;
+
+        minIter          0;
+        maxIter          1000;
+        tolerance        1e-07;
+        relTol           0;
+    };
 }
 
 
+PISO
+{
+    nCorrectors     4;
+    nNonOrthogonalCorrectors 0;
+
+    pRefCell        0;
+    pRefValue       0;
+}
+
 solidMechanics
 {
-    nCorrectors           100;
-    DU                     1e-06;
-    //divSigmaExp           standard;
-    divSigmaExp           surface;
+    nCorrectors           300;
+    DU                    1e-03;
+    divSigmaExp           standard;
+    // divSigmaExp           surface;
     //divSigmaExp           decompose;
     //divSigmaExp           laplacian;
     historyPatch          right;
@@ -59,153 +113,8 @@ solidMechanics
 
 relaxationFactors
 {
-  //DU   0.9;
+  DU   0.9;
   DEpsilonP 0.1;
-}
-
-    // pcorr
-    // {
-    //     solver          PCG;
-    //     preconditioner  DIC;
-    //
-    //     minIter         0;
-    //     maxIter         1000;
-    //     tolerance       0.01;
-    //     relTol          0;
-    // }
-    //
-    // p
-    // {
-    //     solver          PCG;
-    //     preconditioner  DIC;
-    //
-    //     minIter         0;
-    //     maxIter         1000;
-    //     tolerance       1e-07;
-    //     relTol          0;
-    // }
-    //
-    // pFinal
-    // {
-    //     solver          PCG;
-    //     preconditioner  DIC;
-    //
-    //     minIter         0;
-    //     maxIter         1000;
-    //     tolerance       1e-07;
-    //     relTol          0;
-    // }
-    //
-    // U
-    // {
-    //     solver          BiCGStab;
-    //     preconditioner      DILU;
-    //
-    //     minIter         0;
-    //     maxIter         1000;
-    //     tolerance       1e-07;
-    //     relTol          0;
-    // }
-    // rho
-    // {}
-    // pcorr
-    // {
-    //     solver          PCG;
-    //     preconditioner
-    //     {
-    //         preconditioner  GAMG;
-    //         tolerance       0.001;
-    //         relTol          0;
-    //         smoother        GaussSeidel;
-    //         nPreSweeps      0;
-    //         nPostSweeps     2;
-    //         nBottomSweeps   2;
-    //         cacheAgglomeration false;
-    //         nCellsInCoarsestLevel 10;
-    //         agglomerator    faceAreaPair;
-    //         mergeLevels     1;
-    //     }
-    //
-    //     tolerance       0.0001;
-    //     relTol          0;
-    //     maxIter         100;
-    // }
-    //
-    // pd
-    // {
-    //     solver          GAMG;
-    //     tolerance       1e-08;
-    //     relTol          0.05;
-    //     smoother        GaussSeidel;
-    //     nPreSweeps      0;
-    //     nPostSweeps     2;
-    //     nFinestSweeps   2;
-    //     cacheAgglomeration false;
-    //     nCellsInCoarsestLevel 10;
-    //     agglomerator    faceAreaPair;
-    //     mergeLevels     1;
-    // }
-    //
-    // pdFinal
-    // {
-    //     solver          PCG;
-    //     preconditioner
-    //     {
-    //         preconditioner  GAMG;
-    //         tolerance       1e-08;
-    //         relTol          0;
-    //         nVcycles        2;
-    //         smoother        GaussSeidel;
-    //         nPreSweeps      0;
-    //         nPostSweeps     2;
-    //         nFinestSweeps   2;
-    //         cacheAgglomeration false;
-    //         nCellsInCoarsestLevel 10;
-    //         agglomerator    faceAreaPair;
-    //         mergeLevels     1;
-    //     }
-    //
-    //     tolerance       1e-08;
-    //     relTol          0;
-    //     maxIter         20;
-    // }
-    //
-    // U
-    // {
-    //     solver          smoothSolver;
-    //     smoother        GaussSeidel;
-    //     tolerance       1e-06;
-    //     relTol          0;
-    //     nSweeps         1;
-    // }
-// }
-
-
-// SIMPLE
-// {
-//    nNonOrthogonalCorrectors 2;
-// }
-
-// PIMPLE
-// {
-//     momentumPredictor yes;
-//     nOuterCorrectors 1;
-//     nCorrectors     4;
-//     nNonOrthogonalCorrectors 0;
-//     nAlphaCorr      1;
-//     nAlphaSubCycles 3;
-//     cAlpha          1;
-//
-//     pRefPoint      (0.51 0.51 0.51);
-//     pRefValue      0;
-// }
-
-PISO
-{
-    nCorrectors     4;
-    nNonOrthogonalCorrectors 0;
-    pRefCell        0;
-    pRefValue       0;
 }
 
 

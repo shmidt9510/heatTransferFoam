@@ -23,7 +23,8 @@ boundaryField
 {
    allfaces
    {
-        type            solidTractionFree;
+        // type            solidTractionFree;
+        type            zeroGradient;
    }
 }
 

@@ -4,7 +4,7 @@ if(iCorr == 0)
 {
 
     aitkenInitialRes = gMax(mag(DU.internalField()));
-    //Some piece of kakashka
+
     if (aitkenInitialRes == 0)
     {
       aitkenInitialRes = 1e-6;

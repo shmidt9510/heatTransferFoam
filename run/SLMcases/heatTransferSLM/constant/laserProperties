@@ -8,7 +8,7 @@
 FoamFile
 {
     version     2.0;
-    format      ascii;
+    format      binary;
     class       dictionary;
     location    "constant";
     object      laserProperties;
@@ -19,7 +19,7 @@ laserPower      laserPower [ 1 2 -3 0 0 0 0 ] 120;
 
 laserRadius     laserRadius [ 0 1 0 0 0 0 0 ] 5.5e-05;
 
-laserSpeed      laserSpeed [ 0 1 -1 0 0 0 0 ] -0.3;
+laserSpeed      laserSpeed [ 0 1 -1 0 0 0 0 ] 0.3;
 
 coordStartX     coordStartX [ 0 1 0 0 0 0 0 ] 0.0002;
 
@@ -28,6 +28,10 @@ coordStartY     coordStartY [ 0 1 0 0 0 0 0 ] 0.0005;
 coordStartZ     coordStartZ [ 0 1 0 0 0 0 0 ] 0;
 
 timeStop        timeStop [ 0 0 1 0 0 0 0 ] 0.006;
+
+convertToMetersTemp convertToMetersTemp [ 0 1 0 0 0 0 0 ] 0.0001;
+
+laserStrategy   ( ( 3 5 0 ) ( 8 5 0 ) ( 8 5 0 ) ( 3 5 0 ) );
 
 
 // ************************************************************************* //

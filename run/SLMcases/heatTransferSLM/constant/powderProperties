@@ -8,14 +8,14 @@
 FoamFile
 {
     version     2.0;
-    format      ascii;
+    format      binary;
     class       dictionary;
     location    "constant";
     object      powderProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-initialPorosity initialPorosity [ 0 0 0 0 0 0 0 ] 0.4;
+initialPorosity initialPorosity [ 0 0 0 0 0 0 0 ] 0;
 
 absorptivity    absorptivity [ 0 0 0 0 0 0 0 ] 0.3;
 

@@ -2,14 +2,14 @@ EXE_INC = \
     -IReadFiles \
     -IdynMesh \
     -IelasticPlasticSolid \
+    -IDynamicMesh \
     -I$(LIB_SRC)/dynamicMesh/dynamicMesh/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
     -I$(LIB_SRC)/dynamicMesh/dynamicFvMesh/lnInclude \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/dynamicMesh/topoChangerFvMesh/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
-    -I../../src/solidModels/lnInclude
-
+    -I$(LIB_SRC)/solidModels/lnInclude
 
 EXE_LIBS = \
     -lfiniteVolume \
@@ -21,4 +21,6 @@ EXE_LIBS = \
     -lmeshTools \
     -ltopoChangerFvMesh \
     -lsolidModels \
-    -L$(MESQUITE_LIB_DIR) -lmesquite
+    -L$(MESQUITE_LIB_DIR) -lmesquite \
+    -L$(FOAM_USER_LIBBIN) \
+    -lthermoElasticPlasticRheologyLaw

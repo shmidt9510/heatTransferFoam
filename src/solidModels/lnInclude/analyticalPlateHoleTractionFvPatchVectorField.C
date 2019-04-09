@@ -1,1 +1,0 @@
-../fvPatchFields/analyticalPlateHoleTraction/analyticalPlateHoleTractionFvPatchVectorField.C

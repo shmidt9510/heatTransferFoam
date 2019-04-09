@@ -24,7 +24,7 @@ stopAt          endTime;
 
 endTime         0.008;
 
-deltaT          0.0001;
+deltaT          0.0000001;
 
 writeControl    timeStep;
 // writeControl    adjustableRunTime;
@@ -33,11 +33,12 @@ writeInterval   1;
 
 purgeWrite      0;
 
-writeFormat     ascii;
+writeFormat     binary;
+// writeFormat     ascii;
 // writeFormat     binary;
 
 writePrecision  6;
-
+// 6
 writeCompression uncompressed;
 
 timeFormat      general;

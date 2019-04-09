@@ -1,1 +1,0 @@
-../thermalModel/thermalModel.H

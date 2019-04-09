@@ -1,1 +1,0 @@
-../constitutiveModel/solidInterfaces/smallStrainOrthotropicCorrected/smallStrainOrthotropicCorrectedSolidInterface.C

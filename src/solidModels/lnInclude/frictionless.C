@@ -1,1 +1,0 @@
-../contactModels/frictionContactModels/frictionless/frictionless.C

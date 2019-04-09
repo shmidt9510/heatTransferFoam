@@ -16,7 +16,10 @@ FoamFile
 
 d2dt2Schemes
 {
-    default         Euler;
+    default         steadyState;
+    // Euler
+    // backward
+    //steadyState
 }
 
 ddtSchemes
@@ -26,7 +29,7 @@ ddtSchemes
 
 gradSchemes
 {
-    default         Gauss linear;
+    default         extendedLeastSquares 0;
     grad(DU)         extendedLeastSquares 0;
     snGradCorr(DU)   extendedLeastSquares 0;
     // grad(p)         Gauss linear;
@@ -38,15 +41,28 @@ divSchemes
     div(sigma)      Gauss skewCorrected linear;
     // div(phi,U)      Gauss GammaV 0.2;
     // div(phi,T)      Gauss Gamma 0.2;
+   //  div(phi,U)      Gauss linear;
+   // div(phi,U)      Gauss linearUpwind grad(U);
+   // div(phi,U)      Gauss LUST grad(U);
+   // div(phi,U)      Gauss LUST unlimitedGrad(U);
+   // div(phi,U)      Gauss limitedLinear 1;
+   // div(phi,U)      Gauss upwind;
 }
 
 laplacianSchemes
 {
     default                      Gauss linear corrected;
-    laplacian(DDU,DU) Gauss linear corrected;
+    // laplacian(DDU,DU)            Gauss linear corrected;
+    laplacian(DDU,DU)            Gauss linear corrected 0.5;
     // laplacian((mu|rho0),U)       Gauss linear corrected;
     // laplacian((1|A(U)),p)          Gauss linear corrected;
     // laplacian((k|(rho0*Cp)),T)   Gauss linear corrected;
+    // limited corrected 0.33
+    // default         Gauss linear corrected;
+    // default         Gauss linear limited corrected 0.33;
+    // default         Gauss linear limited corrected 0.5;
+    // default         Gauss linear orthogonal;
+    // default         Gauss linear uncorrected;
 }
 
 interpolationSchemes
@@ -59,7 +75,13 @@ interpolationSchemes
 snGradSchemes
 {
     default         corrected;
-    snGrad(DU)       corrected;
+    // snGrad(DU)       corrected;
+    snGrad(DU)       limited corrected 0.5;
+//     default         corrected;
+// default         limited corrected 0.33;
+// default         limited corrected 0.5;
+// default         orthogonal;
+// default         uncorrected;
 }
 
 

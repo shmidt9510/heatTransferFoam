@@ -124,6 +124,33 @@
         dimensionSet(1, -1, -1, 0, 0, 0, 0)
     );
 
+    volScalarField TforSolid
+    (
+        IOobject
+      (
+        "TforSolid",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionSet(0, 0, 0, 1, 0, 0, 0)
+    );
+
+    volScalarField TforSolidOld
+    (
+        IOobject
+      (
+        "TforSolidOld",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionSet(0, 0, 0, 1, 0, 0, 0)
+    );
     // volSymmTensorField epsilonP
     // (
     //     IOobject
@@ -152,24 +179,3 @@
     //     mesh,
     //     dimensionedVector("zero", dimensionSet(1,-2,-2,0,0,0,0), vector::zero)
     // );
-
-// #   include "createPhi.H"
-//
-//     label pRefCell = 0;
-//     scalar pRefValue = 0.0;
-//     setRefCell(p, piso.dict(), pRefCell, pRefValue);
-//     mesh.schemesDict().setFluxRequired(p.name());
-//
-//     Info<< "Reading/calculating field rho\n" << endl;
-//     volScalarField rho
-//     (
-//         IOobject
-//         (
-//             "rho",
-//             runTime.timeName(),
-//             mesh,
-//             IOobject::READ_IF_PRESENT,
-//             IOobject::AUTO_WRITE
-//         ),
-//         rho0*(scalar(1) - beta*(T - T0))
-//     );

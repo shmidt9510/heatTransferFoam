@@ -1,1 +1,0 @@
-../thermalModel/thermalLaws/thermalLaw/thermalLaw.H

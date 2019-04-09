@@ -4,7 +4,7 @@ if(historyPatchID != -1)
     Info << "Writing disp-force to file for patch " << historyPatchName
         << endl;
 
-    vector disp = gAverage(Udisp.boundaryField()[historyPatchID]);
+    vector disp = gAverage(U.boundaryField()[historyPatchID]);
 
     //- for small strain or moving mesh
     vector force =

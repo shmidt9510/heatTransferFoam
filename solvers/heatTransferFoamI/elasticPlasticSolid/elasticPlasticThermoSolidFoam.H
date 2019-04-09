@@ -9,16 +9,66 @@ Info<< "Solve elastoplasticthermonanosolid"<< endl;
         lduMatrix::debug = 0;
         scalar relResT = 1.0;
 
+        // HOW TO EXCLUDE LIQUID PART
+        // volScalarField solidSmooth = mag((T_liquidus + T_liquidus/20 - T)/T_liquidus)*
+        // volScalarField solidSmooth = tanhSmooth(T, T_solidus/1.2, T_solidus/10);
+        // (scalar(1) - liquidFraction*0.9);
+        // if (initialPorosity.value() > 0){
+        //   solidSmooth *=(scalar(1) - porosity/initialPorosity*0.9);
+        // }
+        // surfaceScalarField solidSmoothf = fvc::interpolate(solidSmooth, "solidSmooth");
+        // muf *= solidSmoothf;
+        // lambdaf *= solidSmoothf;
+        // mu *= solidSmooth;
+        // lambda *= solidSmooth;
+        // Info << min(muf) << " " << min(mu) << " " << min(lambdaf) << " " << min(lambda) << endl;
+        // Info << min(solidSmooth) <<" "<< max(liquidFraction) << " "<< max(porosity/initialPorosity) <<endl ;
+         // dimensionedScalar threeK = E/(rho0*(1 - 2*nu));
 
 
-        // dimensionedScalar threeK = E/(rho0*(1 - 2*nu));
         volScalarField threeKalpha = rheology.threeK()*rho*alphaLinear;
         surfaceScalarField threeKalphaf =
             fvc::interpolate(threeKalpha, "threeKalpha");
         // volScalarField threeKalpha = threeK*rho0*alphaLinear;
         // surfaceScalarField threeKalphaf =
         //     fvc::interpolate(threeKalpha, "threeKalpha");
-        volScalarField dT = T-T.oldTime();
+
+        TforSolid = T;
+        TforSolidOld = T.oldTime();
+        if (mesh.time().value() == runTime.deltaTValue()){
+          TforSolidOld *= 0;
+        }
+
+        forAll (TforSolid.internalField(), cellI)
+            {
+              if (TforSolid.internalField()[cellI]>= T_solidus.value()){
+                TforSolid.internalField()[cellI] = T_solidus.value();
+              }
+              if (TforSolidOld.internalField()[cellI] >= T_solidus.value()){
+                TforSolidOld.internalField()[cellI] = T_solidus.value();
+              }
+            }
+
+          forAll(mesh.boundary(), patchID)
+          {
+            forAll (mesh.boundary()[patchID],facei)
+            {
+            if (TforSolid.boundaryField()[patchID][facei]>= T_solidus.value()){
+              TforSolid.boundaryField()[patchID][facei] = T_solidus.value();
+            }
+            if (TforSolidOld.boundaryField()[patchID][facei] >= T_solidus.value()){
+              TforSolidOld.boundaryField()[patchID][facei] = T_solidus.value();
+            }
+          }
+        }
+        // Useless with upper forAll lopp
+        TforSolid.correctBoundaryConditions();
+        TforSolidOld.correctBoundaryConditions();
+
+        volScalarField dT = TforSolid - TforSolidOld;
+        TforSolidOld = TforSolid;
+        // volScalarField dT = T-T.oldTime();
+
         iCorr = 0;
         volVectorField gradThreeKalphaDeltaT =
             fvc::grad(threeKalpha*(dT), "grad(threeKalphaDeltaT)");
@@ -33,7 +83,7 @@ Info<< "Solve elastoplasticthermonanosolid"<< endl;
             (
                 rho*fvm::d2dt2(DU)
              ==
-                fvm::laplacian(2*muf + lambdaf, DU, "laplacian(DDU,DU)")
+                fvm::laplacian((2*muf + lambdaf), DU, "laplacian(DDU,DU)")
               + divDSigmaExp
               - fvc::div(2*muf*(mesh.Sf() & fvc::interpolate(DEpsilonP)))
             );
@@ -99,21 +149,20 @@ Info<< "Solve elastoplasticthermonanosolid"<< endl;
             << ", No outer iterations " << iCorr << endl;
 
         // Update total quantities
+        U += DU;
+        epsilon += DEpsilon;
+        epsilonP += rheology.DEpsilonP();
+        sigma += DSigma;
 
-        Udisp += DU*(scalar(1) - liquidFraction);
-        epsilon += DEpsilon*(scalar(1) - liquidFraction);
-        epsilonP += rheology.DEpsilonP()*(scalar(1) - liquidFraction);
-        sigma += DSigma*(scalar(1) - liquidFraction);
-        Udisp *= (scalar(1) - liquidFraction);
-        epsilon *= (scalar(1) - liquidFraction);
-        epsilonP *= (scalar(1) - liquidFraction);
-        sigma *= (scalar(1) - liquidFraction);
+        // U *= solidFraction;
+        // epsilon *= solidFraction;
+        // epsilonP *= solidFraction;
+        // sigma *= solidFraction;
 
 
         // Update yields stresses
         rheology.updateYieldStress();
         // volScalarField  yieldstressstress = rheology.sigmaY();
-// #       include "writeFields.H"
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"

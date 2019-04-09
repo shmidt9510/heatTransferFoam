@@ -1,1 +1,0 @@
-../fvPatchFields/fixedDisplacementOrSolidTraction/fixedDisplacementOrSolidTractionFvPatchVectorField.H

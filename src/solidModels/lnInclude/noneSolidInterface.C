@@ -1,1 +1,0 @@
-../constitutiveModel/solidInterfaces/none/noneSolidInterface.C

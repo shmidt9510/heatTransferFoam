@@ -15,11 +15,11 @@
     volTensorField gradDU = fvc::grad(DU);
 
     Info<< "Creating field U\n" << endl;
-    volVectorField Udisp
+    volVectorField U
     (
         IOobject
         (
-            "Udisp",
+            "U",
             runTime.timeName(),
             mesh,
             IOobject::READ_IF_PRESENT,

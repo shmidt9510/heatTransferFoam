@@ -1,1 +1,0 @@
-../contactModels/normalContactModels/dirichletNeumann/dirichletNeumannCalculateSlaveFaceNormals.H

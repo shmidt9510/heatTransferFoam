@@ -8,35 +8,32 @@
 FoamFile
 {
     version     2.0;
-    format      ascii;
-    class       volScalarField;
-    object      pd;
+    format      binary;
+    class       dictionary;
+    location    "constant";
+    object      systemProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 -1 -2 0 0 0 0];
+thermalOn       thermalOn [ 0 0 0 0 0 0 0 ] 1;
 
-internalField   uniform 0;
+mechanicalOn    mechanicalOn [ 0 0 0 0 0 0 0 ] 0;
 
-boundaryField
-{
-    allfaces
-    {
-        type            zeroGradient;
-    }
+adaptiveOn      adaptiveOn [ 0 0 0 0 0 0 0 ] 0;
 
-    atmosphere
-    {
-        type            totalPressure;
-        p0              uniform 0;
-        U               U;
-        phi             phi;
-        rho             rho;
-        psi             none;
-        gamma           1;
-        value           uniform 0;
-    }
-}
+youngDependence youngDependence [ 0 0 0 0 0 0 0 ] 0;
+
+smootherAirFactor smootherAirFactor [ 0 0 0 0 0 0 0 ] 100000;
+
+smootherPorosityFactor smootherPorosityFactor [ 0 0 0 0 0 0 0 ] 100000;
+
+multiLayer      multiLayer [ 0 0 0 0 0 0 0 ] 1;
+
+temporal1       temporal1 [ 0 0 0 0 0 0 0 ] 0;
+
+temporal2       temporal2 [ 0 0 0 0 0 0 0 ] 0;
+
+temporal3       temporal3 [ 0 0 0 0 0 0 0 ] 0;
 
 
 // ************************************************************************* //

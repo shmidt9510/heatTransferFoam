@@ -27,19 +27,9 @@
         dimensionedScalar(laserProperties.lookup("laserRadius"))
     );
 
-    dimensionedScalar coordStartX
+    dimensionedVector coordStart
     (
-        dimensionedScalar(laserProperties.lookup("coordStartX"))
-    );
-
-    dimensionedScalar coordStartY
-    (
-        dimensionedScalar(laserProperties.lookup("coordStartY"))
-    );
-
-    dimensionedScalar coordStartZ
-    (
-        dimensionedScalar(laserProperties.lookup("coordStartZ"))
+        dimensionedVector(laserProperties.lookup("coordStart"))
     );
 
     dimensionedScalar timeStop
@@ -58,8 +48,53 @@
     int linecounter = 0;
     dimensionedScalar laserSumTime = mesh.time()*0;
     dimensionedScalar localTime = mesh.time()*0;
-    dimensionedVector point1 = laserStrategy[0]*convertToMetersTemp;
-    dimensionedVector point2 = laserStrategy[1]*convertToMetersTemp;
+    dimensionedVector point1("point1",dimLength,vector(0,0,0));
+    dimensionedVector point2("point2",dimLength,vector(0,0,0));
     dimensionedVector travelLine = (point2 - point1);
     dimensionedScalar lineLength = sqrt(travelLine[0]*travelLine[0] +
     travelLine[1]*travelLine[1] + travelLine[2]*travelLine[2]);
+
+    dimensionedScalar turnOnWidth
+    (
+        dimensionedScalar(laserProperties.lookup("turnOnWidth"))
+    );
+
+    dimensionedScalar turnOnShift
+    (
+        dimensionedScalar(laserProperties.lookup("turnOnShift"))
+    );
+
+    dimensionedScalar coolingTime
+    (
+        dimensionedScalar(laserProperties.lookup("coolingTime"))
+    );
+
+    dimensionedScalar E1
+    (
+        dimensionedScalar(laserProperties.lookup("E1"))
+    );
+
+    dimensionedScalar nu1
+    (
+        dimensionedScalar(laserProperties.lookup("nu1"))
+    );
+
+    dimensionedScalar hatchSpacing
+    (
+        dimensionedScalar(laserProperties.lookup("hatchSpacing"))
+    );
+
+    dimensionedScalar trackLength
+    (
+        dimensionedScalar(laserProperties.lookup("trackLength"))
+    );
+
+    dimensionedScalar lineAmountDim
+    (
+        dimensionedScalar(laserProperties.lookup("lineAmount"))
+    );
+
+    dimensionedScalar strategyChoiceDim
+    (
+        dimensionedScalar(laserProperties.lookup("strategyChoice"))
+    );

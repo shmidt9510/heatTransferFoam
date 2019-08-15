@@ -6,7 +6,7 @@
             "T",
             runTime.timeName(),
             mesh,
-            IOobject::MUST_READ,
+            IOobject::READ_IF_PRESENT,
             IOobject::AUTO_WRITE
         ),
         mesh
@@ -48,7 +48,7 @@
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::NO_WRITE
+            IOobject::AUTO_WRITE
         ),
         mesh,
         dimensionSet(1, -1, -3, 0, 0, 0, 0) //1 -1 -3
@@ -151,6 +151,178 @@
         mesh,
         dimensionSet(0, 0, 0, 1, 0, 0, 0)
     );
+
+    volScalarField solidSmooth
+    (
+        IOobject
+      (
+        "solidSmooth",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh,
+        dimensionSet(0, 0, 0, 0, 0, 0, 0)
+    );
+
+    volScalarField tempSmooth
+    (
+        IOobject
+      (
+        "tempSmooth",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionSet(0, 0, 0, 0, 0, 0, 0)
+    );
+
+    volVectorField temp1
+    (
+        IOobject
+      (
+        "temp1",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh,
+        dimensionedVector("zero", dimensionSet(1,-2,-2,0,0,0,0), vector::zero)
+    );
+    volScalarField dT
+    (
+        IOobject
+      (
+        "dT",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh,
+        dimensionSet(0, 0, 0, 1, 0, 0, 0)
+    );
+
+
+    volScalarField airPart
+    (
+        IOobject
+      (
+        "airPart",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh,
+        dimensionSet(0, 0, 0, 0, 0, 0, 0)
+    );
+
+    volScalarField threeKalpha
+    (
+        IOobject
+      (
+        "threeKalpha",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionSet(1, -1, -2, -1, 0, 0, 0)
+    );
+
+    volScalarField alphaLinearForLib
+    (
+        IOobject
+      (
+        "alphaLinearForLib",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionSet(0, 0, 0, -1, 0, 0, 0)
+    );
+    alphaLinearForLib = alphaLinear;
+
+
+      volScalarField beta_
+      (
+       IOobject
+       (
+        "beta_",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+        ),
+       mesh,
+       dimensionedScalar("0", dimless, 0)
+     );
+
+
+     volScalarField coordX
+     (
+         IOobject
+         (
+             "coordX",
+             runTime.timeName(),
+             mesh,
+             IOobject::NO_READ,
+             IOobject::NO_WRITE
+         ),
+         mesh,
+         dimensionSet(0, 1, 0, 0, 0, 0, 0)
+     );
+
+     volScalarField coordY
+     (
+         IOobject
+         (
+             "coordY",
+             runTime.timeName(),
+             mesh,
+             IOobject::NO_READ,
+             IOobject::NO_WRITE
+         ),
+         mesh,
+         dimensionSet(0, 1, 0, 0, 0, 0, 0)
+     );
+
+     volScalarField coordZ
+     (
+         IOobject
+         (
+             "coordZ",
+             runTime.timeName(),
+             mesh,
+             IOobject::NO_READ,
+             IOobject::NO_WRITE
+         ),
+         mesh,
+         dimensionSet(0, 1, 0, 0, 0, 0, 0)
+     );
+
+     volScalarField trackHistory
+     (
+         IOobject
+         (
+             "trackHistory",
+             runTime.timeName(),
+             mesh,
+             IOobject::NO_READ,
+             IOobject::AUTO_WRITE
+         ),
+         mesh,
+         dimensionSet(0, 0, 0, 0, 0, 0, 0)
+     );
+
     // volSymmTensorField epsilonP
     // (
     //     IOobject

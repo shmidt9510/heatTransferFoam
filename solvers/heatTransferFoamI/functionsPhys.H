@@ -1,8 +1,8 @@
 volScalarField FourParameterModel (const volScalarField& phi, const volScalarField& T,
 dimensionedScalar A_sol, dimensionedScalar A_liq,
-dimensionedScalar dA_sol, dimensionedScalar dA_liq)
+dimensionedScalar dA_sol, dimensionedScalar dA_liq, dimensionedScalar T0)
 {
-return (A_sol+dA_sol*T)+phi*((A_liq-A_sol)+(dA_liq-dA_sol)*T);
+return (A_sol+dA_sol*(T-T0))+phi*((A_liq-A_sol)+(dA_liq-dA_sol)*(T-T0));
 }
 
 volScalarField enthalpyCalc (const volScalarField& T, const volScalarField& phi,

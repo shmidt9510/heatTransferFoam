@@ -1,3 +1,3 @@
 heatTransferFoamI.C
 
-EXE = $(FOAM_APPBIN)/heatTransferFoamI
+EXE = $(FOAM_USER_APPBIN)/heatTransferFoamI

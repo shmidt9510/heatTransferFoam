@@ -67,4 +67,5 @@ if (runTime.outputTime())
      "Zz " << max(sigma.component(symmTensor::ZZ)).value() << endl;
 
     runTime.write();
+    liquidFraction.write();
 }

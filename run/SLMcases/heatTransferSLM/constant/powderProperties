@@ -15,11 +15,19 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-initialPorosity initialPorosity [ 0 0 0 0 0 0 0 ] 0;
+initialPorosity initialPorosity [ 0 0 0 0 0 0 0 ] 0.4;
 
-absorptivity    absorptivity [ 0 0 0 0 0 0 0 ] 0.3;
+absorptivity    absorptivity [ 0 0 0 0 0 0 0 ] 0.45;
 
-powderDepth     powderDepth [ 0 1 0 0 0 0 0 ] 4e-05;
+powderDepth     powderDepth [ 0 1 0 0 0 0 0 ] 6e-05;
+
+airDepth        airDepth [ 0 1 0 0 0 0 0 ] 0.0005;
+
+airDensity      airDensity [ 1 -3 0 0 0 0 0 ] 0.1;
+
+airConductivity airConductivity [ 1 1 -3 -1 0 0 0 ] 0.0018;
+
+airCapacity     airCapacity [ 0 2 -2 -1 0 0 0 ] 520;
 
 
 // ************************************************************************* //

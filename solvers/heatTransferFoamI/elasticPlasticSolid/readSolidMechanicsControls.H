@@ -1,7 +1,10 @@
 const dictionary& stressControl =
   mesh.solutionDict().subDict("solidMechanics");
+
 int nCorr(readInt(stressControl.lookup("nCorrectors")));
 scalar convergenceTolerance(readScalar(stressControl.lookup("DU")));
-int infoFrequency(readInt(stressControl.lookup("infoFrequency")));
 Switch aitkenRelax(stressControl.lookup("aitkenRelaxation"));
-//Switch ensureTotalEquilibrium(stressControl.lookup("ensureTotalEquilibrium"));
+//Switch thirdOrderCorrection(stressControl.lookup("thirdOrderCorrection"));
+int infoFrequency(readInt(stressControl.lookup("infoFrequency")));
+Switch largeStrainOverRelax(stressControl.lookup("largeStrainOverRelax"));
+Switch nonLinearSemiImplicit(stressControl.lookup("nonLinearSemiImplicit"));

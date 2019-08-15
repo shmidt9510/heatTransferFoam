@@ -15,23 +15,41 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-laserPower      laserPower [ 1 2 -3 0 0 0 0 ] 120;
+laserPower      laserPower [ 1 2 -3 0 0 0 0 ] 100;
 
-laserRadius     laserRadius [ 0 1 0 0 0 0 0 ] 5.5e-05;
+laserRadius     laserRadius [ 0 1 0 0 0 0 0 ] 6e-05;
 
-laserSpeed      laserSpeed [ 0 1 -1 0 0 0 0 ] 0.3;
+laserSpeed      laserSpeed [ 0 1 -1 0 0 0 0 ] 0.5;
 
-coordStartX     coordStartX [ 0 1 0 0 0 0 0 ] 0.0002;
-
-coordStartY     coordStartY [ 0 1 0 0 0 0 0 ] 0.0005;
-
-coordStartZ     coordStartZ [ 0 1 0 0 0 0 0 ] 0;
-
-timeStop        timeStop [ 0 0 1 0 0 0 0 ] 0.006;
+timeStop        timeStop [ 0 0 1 0 0 0 0 ] 100;
 
 convertToMetersTemp convertToMetersTemp [ 0 1 0 0 0 0 0 ] 0.0001;
 
-laserStrategy   ( ( 3 5 0 ) ( 8 5 0 ) ( 8 5 0 ) ( 3 5 0 ) );
+laserStrategy   ( ( 3 4 0 ) ( 18 4 0 ) ( 18 5 0 ) ( 3 5 0 ) ( 3 6 0 ) ( 18 6 0 ) ( 18 7 0 ) ( 3 7 0 ) );
+
+laserStrategyVert ( ( 3 4 5 ) ( 18 4 5 ) ( 3 4 4.6 ) ( 18 4 4.6 ) ( 3 4 4.2 ) ( 18 4 4.2 ) ( 3 4 3.8 ) ( 18 4 3.8 ) ( 3 4 3.4 ) ( 18 4 3.4 ) );
+
+laserStrategyFull ( ( 3 4 5 ) ( 18 4 5 ) ( 18 5 5 ) ( 3 5 5 ) ( 3 6 5 ) ( 18 6 5 ) ( 18 7 5 ) ( 3 7 5 ) ( 3 4 4.6 ) ( 18 4 4.6 ) ( 18 5 4.6 ) ( 3 5 4.6 ) ( 3 6 4.6 ) ( 18 6 4.6 ) ( 18 7 4.6 ) ( 3 7 4.6 ) ( 3 4 4.2 ) ( 18 4 4.2 ) ( 18 5 4.2 ) ( 3 5 4.2 ) ( 3 6 4.2 ) ( 18 6 4.2 ) ( 18 7 4.2 ) ( 3 7 4.2 ) ( 3 4 3.8 ) ( 18 4 3.8 ) ( 18 5 3.8 ) ( 3 5 3.8 ) ( 3 6 3.8 ) ( 18 6 3.8 ) ( 18 7 3.8 ) ( 3 7 3.8 ) ( 3 4 3.4 ) ( 18 4 3.4 ) ( 18 5 3.4 ) ( 3 5 3.4 ) ( 3 6 3.4 ) ( 18 6 3.4 ) ( 18 7 3.4 ) );
+
+turnOnShift     turnOnShift [ 0 0 1 0 0 0 0 ] 0.006;
+
+turnOnWidth     turnOnWidth [ 0 0 1 0 0 0 0 ] 0.006;
+
+nu1             nu1 [ 0 0 0 0 0 0 0 ] 0.25;
+
+E1              E1 [ 1 -1 -2 0 0 0 0 ] 2e+11;
+
+coolingTime     coolingTime [ 0 0 1 0 0 0 0 ] 0;
+
+coordStart      coordStart [ 0 1 0 0 0 0 0 ] ( 0.0002 0.00025 0 );
+
+hatchSpacing    hatchSpacing [ 0 1 0 0 0 0 0 ] 5e-05;
+
+trackLength     lineLength [ 0 1 0 0 0 0 0 ] 0.0027;
+
+lineAmount      lineAmount [ 0 0 0 0 0 0 0 ] 20;
+
+strategyChoice  strategyChoice [ 0 0 0 0 0 0 0 ] 1;
 
 
 // ************************************************************************* //

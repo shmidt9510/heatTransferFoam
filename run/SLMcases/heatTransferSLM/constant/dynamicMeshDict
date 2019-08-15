@@ -21,12 +21,12 @@ dynamicRefineFvMeshCoeffs
 {
     refineInterval  1;
     field           liquidFraction;
-    lowerRefineLevel 0.1;
-    upperRefineLevel 0.999;
+    lowerRefineLevel 0.01;
+    upperRefineLevel 0.99;
     unrefineLevel   3;
     nBufferLayers   1;
     maxRefinement   5;
-    maxCells        10;
+    maxCells        100;
     correctFluxes
     (
       (liquidFraction none)

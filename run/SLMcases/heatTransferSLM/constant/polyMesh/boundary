@@ -15,13 +15,43 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-1
+6
 (
-    allfaces
+    bottom
     {
         type            wall;
-        nFaces          10000;
-        startFace       182500;
+        nFaces          8100;
+        startFace       1463220;
+    }
+    top
+    {
+        type            wall;
+        nFaces          8100;
+        startFace       1471320;
+    }
+    left
+    {
+        type            wall;
+        nFaces          5490;
+        startFace       1479420;
+    }
+    right
+    {
+        type            wall;
+        nFaces          5490;
+        startFace       1484910;
+    }
+    up
+    {
+        type            wall;
+        nFaces          5490;
+        startFace       1490400;
+    }
+    down
+    {
+        type            wall;
+        nFaces          5490;
+        startFace       1495890;
     }
 )
 

@@ -35,10 +35,30 @@ solvers
     DU
     {
         solver          PCG; //PCG
+        // BICCG
+        // BiCGStab
+        // CG
+        // FPEAMG
+        // GAMG
+        // GMRES
+        // ICCG
+        // MPEAMG
+        // PCG
+        // RREAMG
+        // amgSolver
+        // deflation
+        // smoothSolver
         preconditioner  DIC; //DIC
 
-        tolerance       1e-07;
+        maxIter         1000;
+        tolerance       1e-03;
         relTol          0.1;
+        // minIter 1;
+        // smoother        DICGaussSeidel;
+        // cacheAgglomeration true;
+        // nCellsInCoarsestLevel 15;
+        // agglomerator    faceAreaPair;
+        // mergeLevels     3;
     }
 
     pcorr
@@ -98,23 +118,27 @@ PISO
 
 solidMechanics
 {
-    nCorrectors           300;
+    nCorrectors           250;
     DU                    1e-03;
     divSigmaExp           standard;
-    // divSigmaExp           surface;
+    //divSigmaExp           standard;
+    //divSigmaExp           surface;
     //divSigmaExp           decompose;
     //divSigmaExp           laplacian;
-    historyPatch          right;
+    historyPatch          right; //none
     solidInterfaceMethod  none;
-    predictor             yes;
+    predictor             no;
     infoFrequency         1;
-    aitkenRelaxation      yes;
+    aitkenRelaxation      no;
+    largeStrainOverRelax  yes; //no
+    nonLinearSemiImplicit no; //no
+    divSigmaNonLinExp     standard;
 }
 
 relaxationFactors
 {
-  DU   0.9;
-  DEpsilonP 0.1;
+  DU   1;
+  // DEpsilonP 0.5;
 }
 
 

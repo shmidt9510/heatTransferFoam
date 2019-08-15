@@ -12,6 +12,11 @@ IOdictionary systemProperties
     )
 );
 
+dimensionedScalar turnOnDebug
+(
+    systemProperties.lookup("turnOnDebug")
+);
+
 dimensionedScalar thermalOn
 (
     systemProperties.lookup("thermalOn")

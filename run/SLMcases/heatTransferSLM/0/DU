@@ -21,11 +21,31 @@ internalField   uniform (0 0 0);
 
 boundaryField
 {
-   allfaces
-   {
-        // type            solidTractionFree;
-        type            zeroGradient;
-   }
+  bottom
+  {
+    type            fixedValue;
+    value           uniform  ( 0 0 0 );
+  }
+  top
+  {
+    type            zeroGradient;
+  }
+  left
+  {
+    type            zeroGradient;
+  }
+  right
+  {
+    type            zeroGradient;
+  }
+  up
+  {
+    type            zeroGradient;
+  }
+  down
+  {
+    type            zeroGradient;
+  }
 }
 
 

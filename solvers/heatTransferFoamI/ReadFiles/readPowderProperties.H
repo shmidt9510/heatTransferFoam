@@ -27,3 +27,23 @@
     (
         dimensionedScalar(powderProperties.lookup("powderDepth"))
     );
+
+    dimensionedScalar airDepth
+    (
+        dimensionedScalar(powderProperties.lookup("airDepth"))
+    );
+
+    dimensionedScalar airConductivity
+    (
+        dimensionedScalar(powderProperties.lookup("airConductivity"))
+    );
+
+    dimensionedScalar airCapacity
+    (
+        dimensionedScalar(powderProperties.lookup("airCapacity"))
+    );
+
+    dimensionedScalar airDensity
+    (
+        dimensionedScalar(powderProperties.lookup("airDensity"))
+    );

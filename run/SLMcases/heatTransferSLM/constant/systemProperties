@@ -15,6 +15,8 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+turnOnDebug     turnOnDebug [ 0 0 0 0 0 0 0 ] 1;
+
 thermalOn       thermalOn [ 0 0 0 0 0 0 0 ] 1;
 
 mechanicalOn    mechanicalOn [ 0 0 0 0 0 0 0 ] 0;
@@ -25,7 +27,7 @@ youngDependence youngDependence [ 0 0 0 0 0 0 0 ] 0;
 
 smootherAirFactor smootherAirFactor [ 0 0 0 0 0 0 0 ] 100000;
 
-smootherPorosityFactor smootherPorosityFactor [ 0 0 0 0 0 0 0 ] 100000;
+smootherPorosityFactor smootherPorosityFactor [ 0 0 0 0 0 0 0 ] 10000;
 
 multiLayer      multiLayer [ 0 0 0 0 0 0 0 ] 1;
 

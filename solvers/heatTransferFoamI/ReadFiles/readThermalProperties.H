@@ -81,51 +81,12 @@
         dimensionedScalar(thermalProperties.lookup("alphaLinear"))
     );
 
-    dimensionedScalar smootherFactor
+    dimensionedScalar tempVar1
     (
-        dimensionedScalar(thermalProperties.lookup("smootherFactor"))
+        dimensionedScalar(thermalProperties.lookup("tempVar1"))
     );
-//
-//
-//     ///
-//     dimensionedScalar initialPorosity
-//     (
-//         dimensionedScalar(thermalProperties.lookup("initialPorosity"))
-//     );
-//
-//     dimensionedScalar absorptivity
-//     (
-//         dimensionedScalar(thermalProperties.lookup("absorptivity"))
-//     );
-// ////
-//
-//
-//     dimensionedScalar laserPower
-//     (
-//         dimensionedScalar(thermalProperties.lookup("laserPower"))
-//     );
-//
-//     dimensionedScalar laserSpeed
-//     (
-//         dimensionedScalar(thermalProperties.lookup("laserSpeed"))
-//     );
-//
-//     dimensionedScalar laserRadius
-//     (
-//         dimensionedScalar(thermalProperties.lookup("laserRadius"))
-//     );
-//
-//     dimensionedScalar coordStartX
-//     (
-//         dimensionedScalar(thermalProperties.lookup("coordStartX"))
-//     );
-//
-//     dimensionedScalar coordStartY
-//     (
-//         dimensionedScalar(thermalProperties.lookup("coordStartY"))
-//     );
-//
-//     dimensionedScalar coordStartZ
-//     (
-//         dimensionedScalar(thermalProperties.lookup("coordStartZ"))
-//     );
+
+    dimensionedScalar tempVar2
+    (
+        dimensionedScalar(thermalProperties.lookup("tempVar2"))
+    );

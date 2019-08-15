@@ -62,7 +62,7 @@ Foam::tmp<Foam::volScalarField> Foam::thermoElasticPlastic::sigmaY() const
     tresult().correctBoundaryConditions();
 
     // use this line for debug: tresult().write();
-    tresult().write();
+    // tresult().write();
     return tresult;
 }
 

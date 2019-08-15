@@ -43,7 +43,9 @@ enthalpyFusion  enthalpyFusion [ 0 2 -2 0 0 0 0 ] 260000;
 
 alphaLinear     alphaLinear [ 0 0 0 -1 0 0 0 ] 1.1e-05;
 
-smootherFactor  smootherFactor [ 0 0 0 0 0 0 0 ] 20;
+tempVar1        tempVar1 [ 0 0 0 0 0 0 0 ] 0;
+
+tempVar2        tempVar2 [ 0 0 0 0 0 0 0 ] 1.3;
 
 
 // ************************************************************************* //

@@ -22,14 +22,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         0.008;
+endTime         0.1; //0.008
 
-deltaT          0.0000001;
+deltaT          0.00005;
 
 writeControl    timeStep;
 // writeControl    adjustableRunTime;
-
-writeInterval   1;
+writeInterval   20;
 
 purgeWrite      0;
 
@@ -47,5 +46,9 @@ timePrecision   6;
 
 runTimeModifiable yes;
 
+adjustTimeStep    no;
 
+libs (
+      "libgroovyBC.so"
+     );
 // ************************************************************************* //

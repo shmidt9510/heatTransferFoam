@@ -29,9 +29,9 @@ ddtSchemes
 
 gradSchemes
 {
-    default         Gauss linear orthogonal;
-    grad(DU)         extendedLeastSquares 0;
-    snGradCorr(DU)   extendedLeastSquares 0;
+    default         leastSquares
+    grad(DU)       leastSquares;
+    snGradCorr(DU)   leastSquares;
     // grad(p)         Gauss linear;
     // Gauss
     // beGauss
@@ -47,8 +47,15 @@ gradSchemes
 
 divSchemes
 {
-    default         Gauss upwind; //GammaV 0.2;
-    div(sigma)      Gauss skewCorrected linear;
+    default         none;
+    div(sigmaExp) Gauss linear;
+    div(sigmaP) Gauss linear;
+    div(sigmaT) Gauss linear;
+    div(sigma) Gauss linear;
+
+    // div(grad(DU)) Gauss linear;
+
+    // div(sigma)      Gauss skewCorrected linear;
     // div(phi,U)      Gauss GammaV 0.2;
     // div(phi,T)      Gauss Gamma 0.2;
    //  div(phi,U)      Gauss linear;

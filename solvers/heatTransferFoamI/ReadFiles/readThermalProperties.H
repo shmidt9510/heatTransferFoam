@@ -12,9 +12,9 @@
         )
     );
 
-    dimensionedScalar rho0
+    dimensionedScalar rho
     (
-        thermalProperties.lookup("rho0")
+        thermalProperties.lookup("rho")
     );
 
     dimensionedScalar T0

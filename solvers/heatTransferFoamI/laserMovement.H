@@ -50,10 +50,9 @@ dimensionedVector laserCoordinate ("laserCoordinate",dimLength,
 
 if (mag(localTime*laserSpeed) > lineLength){
 Info << "One more line is done" <<  endl;
-fileos << "New line # " << linecounter/2 <<  endl;
   linecounter = linecounter + 2;
   laserSumTime = laserSumTime + localTime;
-  bool strategyNewLayer1 = (( laserStrategy[linecounter-2](2) != laserStrategy[linecounter](2)) && (strategyChoice == 0));
+  bool strategyNewLayer1 = (( laserStrategy[linecounter-2][2] != laserStrategy[linecounter][2]) && (strategyChoice == 0));
   bool strategyNewLayer2 = (((linecounter/2)%lineAmount) == 0) && (linecounter != 0) && (strategyChoice == 1);
   if (turnOnDebug.value() == 1){
   Info << "WTF with layers " << strategyNewLayer1 << strategyNewLayer2 << endl;
@@ -64,10 +63,11 @@ fileos << "New line # " << linecounter/2 <<  endl;
     waitingTime = mesh.time() + coolingTime;
     }
     laserSumTime += coolingTime;
-
+    if (airIsOn){
     airDepth = airDepth - powderDepth;
     airPart = tanhSmooth(coordZ, airDepth, -powderDepth/smootherAirFactor);
     LayerNumber++;
+  }
   }
 }
 bool strategyChoiceStop1 = ((strategyChoice == 0) && (linecounter >= laserStrategy.size())) || (mesh.time() > timeStop);
@@ -79,7 +79,7 @@ if ((strategyChoiceStop1) || (strategyChoiceStop2) || (mesh.time() < waitingTime
     Info << (linecounter >= laserStrategy.size()) << " " <<(mesh.time() > timeStop) << " " << (mesh.time() < waitingTime) << endl;
   }
   Info << "Laser is off" << " flag 1 " << strategyChoiceStop1 << " flag 2 " << strategyChoiceStop2 << endl;
-  laserDistribution *= 0;
+  laserDistribution = laserDistribution*0;
 } else {
 laserDistribution = 2*absorptivity*laserPower*
   gaussian(coordX, laserCoordinate[0], laserRadius)*

@@ -47,6 +47,28 @@ dimensionedScalar smootherPorosityFactor
     systemProperties.lookup("smootherPorosityFactor")
 );
 
+dimensionedScalar borderValue
+(
+    systemProperties.lookup("borderValue")
+);
+dimensionedScalar decreaseValueDim
+(
+    systemProperties.lookup("decreaseValueDim")
+);
+
+dimensionedScalar parameterChoice
+(
+    systemProperties.lookup("parameterChoice")
+);
+dimensionedScalar adaptationRegion
+(
+    systemProperties.lookup("adaptationRegion")
+);
+dimensionedScalar onlySingleTrack
+(
+    systemProperties.lookup("onlySingleTrack")
+);
+
 dimensionedScalar temporal1
 (
     systemProperties.lookup("temporal1")
@@ -60,3 +82,5 @@ dimensionedScalar temporal3
 (
     systemProperties.lookup("temporal3")
 );
+
+double mechanicalTest = readScalar(systemProperties.lookup("mechanicalTest"));

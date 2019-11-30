@@ -9,7 +9,6 @@ EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/dynamicMesh/topoChangerFvMesh/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
-    -I$(LIB_SRC)/solidModels/lnInclude
 
 EXE_LIBS = \
     -lfiniteVolume \
@@ -17,10 +16,7 @@ EXE_LIBS = \
     -lmeshTools \
     -ldynamicFvMesh \
     -ltopoChangerFvMesh \
-    -llduSolvers \
     -lmeshTools \
     -ltopoChangerFvMesh \
-    -lsolidModels \
     -L$(MESQUITE_LIB_DIR) -lmesquite \
-    -L$(FOAM_USER_LIBBIN) \
-    -lthermoElasticPlasticRheologyLaw
+    -L$(FOAM_USER_LIBBIN) 

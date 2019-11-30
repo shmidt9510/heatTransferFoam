@@ -1,0 +1,128 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1e-4;
+
+xmin -0.5;
+xmax 20;
+ymin -3.5;
+ymax 3.5;
+zmin 0;
+zmax 5.5;
+ymax2 3;
+zmid 0;
+
+vertices
+(
+    ($xmin $ymin $zmin) //0
+    ($xmax $ymin $zmin) //1
+    ($xmax $ymax $zmin) //2
+    ($xmin $ymax $zmin) //3
+
+    ($xmin $ymin $zmax) //4
+    ($xmax $ymin $zmax) //5
+    ($xmax $ymax $zmax) //6
+    ($xmin $ymax $zmax) //7
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (180 80 40) simpleGrading (1 1 1)
+);
+// (1 0.1 10) (1 10 10)
+// hex (0 1 2 3 4 5 6 7) (80 40 40) simpleGrading (1 0.1 10)
+// hex (3 2 8 9 7 6 10 11) (80 40 40) simpleGrading (1 10 10)
+edges
+(
+);
+
+boundary
+(
+    // allfaces
+    // {
+    //     type wall;
+    //     faces
+    //     (
+    //         (0 1 2 3)
+    //         (4 5 6 7)
+    //         (1 2 6 5)
+    //         (3 7 4 0)
+    //         (0 1 5 4)
+    //         (3 2 6 7)
+    //     );
+    // }
+    //   7     6
+    //   |  4  |  5
+    //   |     |
+    //   3     2
+    //     0     1
+    bottom
+    {
+        type patch;
+        faces
+        (
+              (0 1 2 3)
+        );
+    }
+    top
+    {
+        type wall;
+        faces
+        (
+              (4 5 6 7)
+        );
+    }
+    left
+    {
+        type wall;
+        faces
+        (
+              (3 7 4 0)
+        );
+    }
+    right
+    {
+        type wall;
+        faces
+        (
+              (1 2 6 5)
+        );
+    }
+    up
+    {
+        type wall;
+        faces
+        (
+          (3 2 6 7)
+        );
+    }
+
+    down
+        {
+            type wall;
+            faces
+            (
+              (0 1 5 4)
+            );
+        }
+);
+
+mergePatchPairs
+(
+);
+
+
+// ************************************************************************* //

@@ -28,6 +28,8 @@ boundaryField
   }
   top
   {
+    // type            zeroGradient;
+
     type            fixedValue;
     value           uniform 133527;
   }

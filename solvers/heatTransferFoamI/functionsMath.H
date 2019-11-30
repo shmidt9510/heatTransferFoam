@@ -12,3 +12,15 @@ dimensionedScalar tanhSmooth (const dimensionedScalar& x, const dimensionedScala
 {
 return (0.5*tanh((x-shift)/width)+0.5);
 }
+
+double calculatePower(double t, double a, double b, double c, double x1, double x0)
+{
+  if (x1 > x0){
+    return 100;
+  }
+  if (t < x0){
+    return 1;
+  } else {
+    return (a* Foam::pow(((t - x1)),b) + c);
+  }
+}

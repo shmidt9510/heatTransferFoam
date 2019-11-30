@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
-| \\      /  F ield         | foam-extend: Open Source CFD                    |
-|  \\    /   O peration     | Version:     4.0                                |
-|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1906                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -10,6 +10,7 @@ FoamFile
     version     2.0;
     format      binary;
     class       dictionary;
+    arch        "LSB;label=32;scalar=64";
     location    "constant";
     object      powderProperties;
 }
@@ -17,11 +18,11 @@ FoamFile
 
 initialPorosity initialPorosity [ 0 0 0 0 0 0 0 ] 0.4;
 
-absorptivity    absorptivity [ 0 0 0 0 0 0 0 ] 0.45;
+absorptivity    absorptivity [ 0 0 0 0 0 0 0 ] 0.3;
 
-powderDepth     powderDepth [ 0 1 0 0 0 0 0 ] 6e-05;
+powderDepth     powderDepth [ 0 1 0 0 0 0 0 ] 2e-05;
 
-airDepth        airDepth [ 0 1 0 0 0 0 0 ] 0.0005;
+airDepth        airDepth [ 0 1 0 0 0 0 0 ] 0;
 
 airDensity      airDensity [ 1 -3 0 0 0 0 0 ] 0.1;
 

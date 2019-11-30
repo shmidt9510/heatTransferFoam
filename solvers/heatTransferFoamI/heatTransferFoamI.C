@@ -40,8 +40,8 @@ Simulate selective laser melting on the single layer with mechanical stresses pr
 #include "functionsMath.H"
 
 //ELASTOTHERMOPLASTOTHING
-#include "constitutiveModel.H"
-#include "solidContactFvPatchVectorField.H"
+// #include "constitutiveModel.H"
+// #include "solidContactFvPatchVectorField.H"
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -62,15 +62,11 @@ int main(int argc, char *argv[])
 #include "readLaserProperties.H"
 #include "readPowderProperties.H"
 #include "readSystemProperties.H"
+#include "readPowerStrategy.H"
+#include "readMechanicalProperties.H"
 #include "createFields.H"
-
-// Plastic stuff
 #include "createPlasticFields.H"
-#include "createHistory.H"
-#include "readDivDSigmaExpMethod.H"
-#include "readDivDSigmaNonLinExpMethod.H"
-#include "readSolidMechanicsControls.H"
-
+//Adaptive mesh stuff
 // #include "initContinuityErrs.H"
 // #include "initTotalVolume.H"
 // #include "createMeshFields.H"
@@ -81,12 +77,21 @@ coordY = mesh.C().component(vector::Y);
 coordZ = mesh.C().component(vector::Z);
 
 //initialPorosity here is for material conistensy after melting
-powderDepth = powderDepth*initialPorosity;
+if (powderDepth.value() != 0){
+powderDepth = powderDepth*(scalar(1) - initialPorosity);
 Info << "powderDepth " << powderDepth << endl;
-porosityPrev =  initialPorosity.value()*tanhSmooth(coordZ, airDepth + powderDepth, -powderDepth/smootherPorosityFactor);
-if (airDepth.value() > 0){
+porosityPrev = initialPorosity.value()*tanhSmooth(coordZ, powderDepth, -powderDepth/smootherPorosityFactor);
+} else {
+porosityPrev = initialPorosity.value()*tanhSmooth(coordZ, laserRadius, -laserRadius/smootherPorosityFactor)*0;
+}
+bool airIsOn = false;
+if ((airDepth.value() > 0) && (powderDepth.value() > 0)){
+  airIsOn = true;
+porosityPrev = initialPorosity.value()*tanhSmooth(coordZ, airDepth + powderDepth, -powderDepth/smootherPorosityFactor);
 airPart = tanhSmooth(coordZ, airDepth, -powderDepth/smootherAirFactor);
 coordStart.replace(2, airDepth);
+} else {
+airPart = airPart*0;
 }
 T = T0;
 //IC
@@ -117,20 +122,30 @@ volScalarField k = FourParameterModel(liquidFraction, T, k_sol, k_liq, dk_sol, d
 volScalarField gradhe (Foam::mag(fvc::grad(he)));
 dimensionedScalar deltaT (runTime.deltaT());
 
-rho = rho0;
 dimensionedScalar waitingTime = deltaT*0;
-int firstiteration = 1;
+int firstIteration = 0;
 // ***************** Check laser source energy ***************
 dimensionedScalar liquidFractionVolume = fvc::domainIntegrate(liquidFraction);
 volScalarField liquidFractionPrev = liquidFraction;
 int lineAmount = lineAmountDim.value();
 int strategyChoice = strategyChoiceDim.value();
+double decreaseValue = decreaseValueDim.value();
 dimensionedScalar liquidFractionWidth = laserRadius;
 dimensionedScalar liquidFractionLength = laserRadius;
 dimensionedScalar liquidFractionDepth = laserRadius;
 dimensionedScalar maxTemperature = T0;
+dimensionedScalar initialLaserPower = laserPower;
 fileName outputFile("text.txt");
 OFstream fileos(outputFile);
+bool borderCheck = false;
+bool convergedAdaptation = false;
+bool startAdaptation = false;
+double adaptPar = 0;
+double prevAdaptPar = 0;
+int timeIteration = 0;
+int adaptationCounter = 0;
+dimensionedScalar prevLaserPower = laserPower;
+DEpsilonP = tensor::zero;
 // dimensionedScalar hmin = pow(min(mesh.V()),1/3);
 //
 // dimensionedScalar cflLaser = mesh.deltatT()/hmin*laserSpeed;
@@ -138,9 +153,14 @@ OFstream fileos(outputFile);
 
 volScalarField entSumPrev = he;
 volScalarField entSum = he;
-entSumPrev.internalField() *= mesh.V();
-entSum.internalField() *= mesh.V();
+// entSumPrev = entSumPrev*mesh.V();
+// entSum = entSum*mesh.V();
 int LayerNumber = 0;
+//****************** Single track flag *******************
+if (onlySingleTrack.value() == 1){
+runTime.setDeltaT(trackLength/(laserSpeed*50));
+runTime.setEndTime(runTime.value()+runTime.deltaT().value()*50);
+}
 // ***************** Check resolution ***************
 // volScalarField gausTest(
 //      gaussian(coordX, coordStartX, laserRadius)
@@ -166,26 +186,136 @@ int LayerNumber = 0;
 //         if (adaptiveOn.value() == 1){
 // #       include "dynMeshFile.H"
 //         }
-
         //Calculation of the heat distribution
+        he.storePrevIter();
         if (thermalOn.value() == 1){
-#       include "heatTransferSolve.H"
+          if ((adaptiveOn.value() == 1) && startAdaptation){
+            while (!convergedAdaptation){
+              adaptationCounter++;
+              Info << "Adaptation iteration # " << adaptationCounter<< endl;
+#             include "heatTransferSolve.H"
+            }
+            convergedAdaptation = false;
+          } else if (adaptiveOn.value() == 2) {
+            laserPower = powerStrategy[timeIteration]*laserPower/laserPower.value();;
+#           include "heatTransferSolve.H"
+          } else if (adaptiveOn.value() == 3) {
+            laserPower = initialLaserPower*calculatePower(mesh.time().value(),a,b,c,x1,x0);
+            Info << "POOOOOOOOWEERRRRR" << laserPower << endl;
+#           include "heatTransferSolve.H"
+          } else {
+#           include "heatTransferSolve.H"
+          }
+          if (firstIteration == 1){
+            while (!convergedAdaptation){
+              adaptationCounter++;
+              Info << "Adaptation iteration # " << adaptationCounter<< endl;
+  #             include "heatTransferSolve.H"
+            }
+            convergedAdaptation = false;
+            firstIteration = 2;
+          }
+          if (convergedAdaptation){
+            he.prevIter();
+#           include "heatTransferSolve.H"
+          }
+
+        adaptationCounter = 0;
         }
 
-        //Calculate stresses
+//        Calculate stresses
         if (mechanicalOn.value() == 1){
+
+        Info << "Solve plastic" << endl;
 #       include "elasticPlasticThermoSolidFoam.H"
         }
 
         //Write everything
-#       include "writeFields.H"
+        if (runTime.outputTime())
+        {
+          runTime.write();
+          liquidFraction.write();
+          DEpsilonP.write();
+          epsilonP.write();
+          DEpsilonT.write();
 
-#       include "writeHistory.H"
+                  volScalarField epsilonEq
+          (
+              IOobject
+              (
+                  "epsilonEq",
+                  runTime.timeName(),
+                  mesh,
+                  IOobject::NO_READ,
+                  IOobject::AUTO_WRITE
+              ),
+              sqrt((2.0/3.0)*magSqr(dev(epsilon)))
+          );
+
+          Info<< "Max epsilonEq = " << max(epsilonEq).value() << endl;
+
+          volScalarField epsilonPEq
+          (
+              IOobject
+              (
+                  "epsilonPEq",
+                  runTime.timeName(),
+                  mesh,
+                  IOobject::NO_READ,
+                  IOobject::AUTO_WRITE
+              ),
+              sqrt((2.0/3.0)*magSqr(dev(epsilonP)))
+          );
+
+          Info<< "Max epsilonPEq = " << max(epsilonPEq).value() << endl;
+
+          volScalarField sigmaEq
+          (
+              IOobject
+              (
+                  "sigmaEq",
+                  runTime.timeName(),
+                  mesh,
+                  IOobject::NO_READ,
+                  IOobject::AUTO_WRITE
+              ),
+              sqrt((3.0/2.0)*magSqr(dev(sigma)))
+          );
+
+                    Info<< "Max sigmaEq = " << max(sigmaEq).value() << endl;
+
+                    volScalarField sigmaHyd
+                    (
+                        IOobject
+                        (
+                            "sigmaHyd",
+                            runTime.timeName(),
+                            mesh,
+                            IOobject::NO_READ,
+                            IOobject::AUTO_WRITE
+                        ),
+                        (
+                            sigma.component(symmTensor::XX)
+                          + sigma.component(symmTensor::YY)
+                          + sigma.component(symmTensor::ZZ)
+                        )/3
+                    );
+            Info<< "Max sigmaHyd = " << max(sigmaHyd).value() << endl <<
+             "Xx " << max(sigma.component(symmTensor::XX)).value() << endl <<
+             "Yy " << max(sigma.component(symmTensor::YY)).value() << endl <<
+             "Zz " << max(sigma.component(symmTensor::ZZ)).value() << endl;
+
+
+
+        }
+// #       include "writeFields.H"
+//
+// #       include "writeHistory.H"
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
             << nl << endl;
-    firstiteration = 0;
+        timeIteration ++;
     }
 
     Info<< "End\n" << endl;

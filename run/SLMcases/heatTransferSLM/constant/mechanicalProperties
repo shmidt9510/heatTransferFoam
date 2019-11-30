@@ -1,0 +1,32 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1906                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    class       dictionary;
+    arch        "LSB;label=32;scalar=64";
+    location    "constant";
+    object      mechanicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+E               E [ 1 -1 -2 0 0 0 0 ] 2e+11;
+
+nu              nu [ 0 0 0 0 0 0 0 ] 0.25;
+
+sigmaY          sigmaY [ 1 -1 -2 0 0 0 0 ] 33200;
+
+Ep              Ep [ 1 -1 -2 0 0 0 0 ] 0;
+
+solidSmoothWidth 10;
+
+solidSmoothAmplitude 0.99;
+
+
+// ************************************************************************* //

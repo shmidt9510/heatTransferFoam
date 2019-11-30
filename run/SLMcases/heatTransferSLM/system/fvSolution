@@ -21,40 +21,52 @@ solvers
         solver          PCG;
         preconditioner  DIC;
         tolerance       1e-06;
+        smoother        DICGaussSeidel;
         relTol          0;
     }
 
     he
     {
-        solver          BiCGStab;
-        preconditioner  DILU;
+        solver          PCG;
+        preconditioner  diagonal;
         tolerance       1e-05;
         relTol          0;
     }
 
+
+    stressAnalysis
+    {
+        compactNormalStress yes;
+        nCorrectors     1;
+        DU               1e-06;
+    }
+
+
+// DU
+// {
+// solver GAMG;
+// tolerance 1e-04;
+// relTol 0.1;
+// smoother GaussSeidel;
+// cacheAgglomeration true;
+// nCellsInCoarsestLevel 10;
+// agglomerator faceAreaPair;
+// mergeLevels 2;
+// }
+
+ // The three components ofthe displacement in the mechanical equations are
+ //  solved coupled usinga DILU preconditioned, stabilized bi-conjugate gradient solver.
+ // Multi-scale computational modeling of residual stress in selective lasermelting with uncertainty quantification
     DU
     {
-        solver          PCG; //PCG
-        // BICCG
-        // BiCGStab
-        // CG
-        // FPEAMG
-        // GAMG
-        // GMRES
-        // ICCG
-        // MPEAMG
-        // PCG
-        // RREAMG
-        // amgSolver
-        // deflation
-        // smoothSolver
+        solver          PBiCGStab; //PCG
         preconditioner  DIC; //DIC
 
-        maxIter         1000;
-        tolerance       1e-03;
+        maxIter         3000;
+        tolerance       1e-05;
         relTol          0.1;
         // minIter 1;
-        // smoother        DICGaussSeidel;
+        smoother        DICGaussSeidel;
         // cacheAgglomeration true;
         // nCellsInCoarsestLevel 15;
         // agglomerator    faceAreaPair;

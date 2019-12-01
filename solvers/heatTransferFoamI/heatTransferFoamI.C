@@ -210,7 +210,7 @@ runTime.setEndTime(runTime.value()+runTime.deltaT().value()*50);
             while (!convergedAdaptation){
               adaptationCounter++;
               Info << "Adaptation iteration # " << adaptationCounter<< endl;
-  #             include "heatTransferSolve.H"
+#             include "heatTransferSolve.H"
             }
             convergedAdaptation = false;
             firstIteration = 2;

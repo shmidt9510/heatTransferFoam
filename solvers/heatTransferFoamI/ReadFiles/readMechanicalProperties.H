@@ -60,6 +60,10 @@ Info<< "Reading mechanical properties\n" << endl;
       E*nu/((1 + nu)*(1 - 2*nu))
     );
 
+    Info << " mu 0 "<< max(mu) << " lambda 0 " << max(lambda) << endl;
+
+
+
     double solidSmoothWidth = readScalar(mechanicalProperties.lookup("solidSmoothWidth"));
     double solidSmoothAmplitude = readScalar(mechanicalProperties.lookup("solidSmoothAmplitude"));
 

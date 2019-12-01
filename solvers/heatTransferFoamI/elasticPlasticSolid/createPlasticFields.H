@@ -9,8 +9,21 @@
             "U",
             runTime.timeName(),
             mesh,
-            IOobject::READ_IF_PRESENT,
+            IOobject::MUST_READ,
             IOobject::AUTO_WRITE
+        ),
+        mesh
+    );
+
+    volVectorField Uold
+    (
+        IOobject
+        (
+            "Uold",
+            runTime.timeName(),
+            mesh,
+            IOobject::READ_IF_PRESENT,
+            IOobject::NO_WRITE
         ),
         mesh,
         dimensionSet(0,1,0,0,0,0,0)
@@ -23,11 +36,14 @@
             "DU",
             runTime.timeName(),
             mesh,
-            IOobject::MUST_READ,
+            IOobject::READ_IF_PRESENT,
             IOobject::AUTO_WRITE
         ),
-        mesh
+        mesh,
+        dimensionSet(0,1,0,0,0,0,0)
     );
+
+    volTensorField gradU = fvc::grad(U);
 
     volTensorField gradDU = fvc::grad(DU);
 
@@ -73,19 +89,6 @@
         dimensionSet(0, 0, 0, 0, 0, 0, 0)
     );
 
-    volTensorField gradU
-    (
-        IOobject
-        (
-            "grad(U)",
-            runTime.timeName(),
-            mesh,
-            IOobject::READ_IF_PRESENT,
-            IOobject::AUTO_WRITE
-        ),
-        mesh,
-        dimensionSet(0, 0, 0, 0, 0, 0, 0)
-    );
     volTensorField DSigma
     (
         IOobject
@@ -114,11 +117,25 @@
         dimForce/dimArea
     );
 
+    volTensorField sigmaOld
+    (
+        IOobject
+        (
+            "sigmaOld",
+            runTime.timeName(),
+            mesh,
+            IOobject::READ_IF_PRESENT,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimForce/dimArea
+    );
+
     volScalarField sigmaYVol
     (
         IOobject
         (
-            "sigma",
+            "sigmaYVol",
             runTime.timeName(),
             mesh,
             IOobject::READ_IF_PRESENT,
@@ -151,6 +168,20 @@
             runTime.timeName(),
             mesh,
             IOobject::READ_IF_PRESENT,
+            IOobject::AUTO_WRITE
+        ),
+        mesh,
+        dimensionSet(0, 0, 0, 0, 0, 0, 0)
+    );
+
+    volTensorField epsilonPold
+    (
+        IOobject
+        (
+            "epsilonPold",
+            runTime.timeName(),
+            mesh,
+            IOobject::READ_IF_PRESENT,
             IOobject::NO_WRITE
         ),
         mesh,
@@ -161,7 +192,7 @@
 
     dimensionedScalar sinkTerm("sinkTerm",dimensionSet(1, -3, -2, 0, 0, 0, 0),1000);
 
-    
+
    // plastic strain increment
    // volTensorField DEpsilonP = rheology.DEpsilonP();
    // const volTensorField& DEpsilonP = rheology.DEpsilonP();

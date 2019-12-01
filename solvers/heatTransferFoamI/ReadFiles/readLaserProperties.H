@@ -69,16 +69,6 @@
         dimensionedScalar(laserProperties.lookup("coolingTime"))
     );
 
-    dimensionedScalar E1
-    (
-        dimensionedScalar(laserProperties.lookup("E1"))
-    );
-
-    dimensionedScalar nu1
-    (
-        dimensionedScalar(laserProperties.lookup("nu1"))
-    );
-
     dimensionedScalar hatchSpacing
     (
         dimensionedScalar(laserProperties.lookup("hatchSpacing"))
@@ -98,3 +88,8 @@
     (
         dimensionedScalar(laserProperties.lookup("strategyChoice"))
     );
+    double a = readScalar(laserProperties.lookup("a"));
+    double b = readScalar(laserProperties.lookup("b"));
+    double c = readScalar(laserProperties.lookup("c"));
+    double x1 = readScalar(laserProperties.lookup("x1"));
+    double x0 = readScalar(laserProperties.lookup("x0"));

@@ -9,47 +9,26 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      he;
+    class       volVectorField;
+    object      U;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-// top is bottom thats up and down
-dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform 1;
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0 0 0);
 
 boundaryField
 {
-  bottom
-  {
-    type            zeroGradient;
-    // type            fixedValue;
-    // value           uniform 133527; 133527 (273) 280259 (573) 573723 (1173)
+      noback
+      {
+           type            zeroGradient;
+      }
+      back
+      {
+           type            zeroGradient;
+      }
   }
-  top
-  {
-    // type            zeroGradient;
-
-    type            fixedValue;
-    value           uniform 133527;
-  }
-  left
-  {
-    type            zeroGradient;
-  }
-  right
-  {
-    type            zeroGradient;
-  }
-  up
-  {
-    type            zeroGradient;
-  }
-  down
-  {
-    type            zeroGradient;
-  }
-}
 
 
 // ************************************************************************* //

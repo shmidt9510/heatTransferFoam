@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
-| \\      /  F ield         | foam-extend: Open Source CFD                    |
-|  \\    /   O peration     | Version:     4.0                                |
-|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1906                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -10,16 +10,17 @@ FoamFile
     version     2.0;
     format      binary;
     class       dictionary;
+    arch        "LSB;label=32;scalar=64";
     location    "constant";
     object      systemProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-turnOnDebug     turnOnDebug [ 0 0 0 0 0 0 0 ] 1;
+turnOnDebug     turnOnDebug [ 0 0 0 0 0 0 0 ] 0;
 
 thermalOn       thermalOn [ 0 0 0 0 0 0 0 ] 1;
 
-mechanicalOn    mechanicalOn [ 0 0 0 0 0 0 0 ] 0;
+mechanicalOn    mechanicalOn [ 0 0 0 0 0 0 0 ] 1;
 
 adaptiveOn      adaptiveOn [ 0 0 0 0 0 0 0 ] 0;
 
@@ -31,11 +32,23 @@ smootherPorosityFactor smootherPorosityFactor [ 0 0 0 0 0 0 0 ] 10000;
 
 multiLayer      multiLayer [ 0 0 0 0 0 0 0 ] 1;
 
-temporal1       temporal1 [ 0 0 0 0 0 0 0 ] 0;
+borderValue     borderValue [ 0 0 0 0 0 0 0 ] 1.1e-06;
 
-temporal2       temporal2 [ 0 0 0 0 0 0 0 ] 0;
+decreaseValueDim decreaseValueDim [ 0 0 0 0 0 0 0 ] 0.025;
+
+temporal1       temporal1 [ 0 0 0 0 0 0 0 ] 0.999;
+
+temporal2       temporal2 [ 0 0 0 0 0 0 0 ] 10;
 
 temporal3       temporal3 [ 0 0 0 0 0 0 0 ] 0;
+
+parameterChoice parameterChoice [ 0 0 0 0 0 0 0 ] 3;
+
+onlySingleTrack onlySingleTrack [ 0 0 0 0 0 0 0 ] 1;
+
+adaptationRegion adaptationRegion [ 0 0 0 0 0 0 0 ] 0.001;
+
+mechanicalTest  0;
 
 
 // ************************************************************************* //

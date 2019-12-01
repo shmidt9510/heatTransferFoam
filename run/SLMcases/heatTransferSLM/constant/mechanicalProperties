@@ -12,23 +12,21 @@ FoamFile
     class       dictionary;
     arch        "LSB;label=32;scalar=64";
     location    "constant";
-    object      powderProperties;
+    object      mechanicalProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-initialPorosity initialPorosity [ 0 0 0 0 0 0 0 ] 0.4;
+E               E [ 1 -1 -2 0 0 0 0 ] 2e+11;
 
-absorptivity    absorptivity [ 0 0 0 0 0 0 0 ] 0.3;
+nu              nu [ 0 0 0 0 0 0 0 ] 0.25;
 
-powderDepth     powderDepth [ 0 1 0 0 0 0 0 ] 2e-05;
+sigmaY          sigmaY [ 1 -1 -2 0 0 0 0 ] 33200;
 
-airDepth        airDepth [ 0 1 0 0 0 0 0 ] 0;
+Ep              Ep [ 1 -1 -2 0 0 0 0 ] 0;
 
-airDensity      airDensity [ 1 -3 0 0 0 0 0 ] 0.1;
+solidSmoothWidth 10;
 
-airConductivity airConductivity [ 1 1 -3 -1 0 0 0 ] 0.0018;
-
-airCapacity     airCapacity [ 0 2 -2 -1 0 0 0 ] 520;
+solidSmoothAmplitude 0.99;
 
 
 // ************************************************************************* //
